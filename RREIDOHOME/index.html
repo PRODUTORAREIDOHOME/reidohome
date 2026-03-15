@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtora Rei do Home | Oficial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #050505; color: white; }
+        .gold-gradient { background: linear-gradient(90deg, #b8860b 0%, #ffdf00 50%, #b8860b 100%); }
+        .gold-text { background: linear-gradient(90deg, #d4af37, #fcf6ba, #d4af37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo-glow { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)); }
+        .progress-bar { transition: width 0.1s linear; }
+    </style>
+</head>
+<body class="pb-32">
+
+    <nav class="p-4 flex justify-between items-center border-b border-zinc-800 sticky top-0 bg-black/95 backdrop-blur-md z-50">
+        <div class="flex items-center gap-3">
+            <img src="logo.jpg" alt="Rei do Home" class="w-10 h-10 object-contain logo-glow">
+            <span class="text-lg font-black uppercase tracking-tighter gold-text hidden sm:block">Rei do Home</span>
+        </div>
+        <div class="flex gap-6 font-bold text-[10px] uppercase tracking-[0.2em]">
+            <a href="#" class="text-yellow-500">Início</a>
+            <a href="#" class="hover:text-yellow-500 transition">Artistas</a>
+            <a href="https://wa.me/seu-numero" class="hover:text-yellow-500 transition">Contato</a>
+        </div>
+    </nav>
+
+    <header class="relative h-[60vh] flex items-center justify-center overflow-hidden border-b border-zinc-900">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-black/60 z-10"></div>
+        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=2070" class="absolute inset-0 w-full h-full object-cover opacity-20" alt="Studio">
+        
+        <div class="relative z-20 text-center px-4">
+            <img src="logo.jpg" alt="Rei do Home" class="w-40 h-40 md:w-56 md:h-56 mx-auto mb-6 logo-glow drop-shadow-2xl">
+            <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4 gold-text">A Casa dos Hits</h1>
+            <p class="text-zinc-400 text-xs uppercase tracking-[0.4em] mb-8 font-bold text-center">Produção Musical • Mix • Master</p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-16">
+        <h3 class="text-2xl font-black uppercase mb-10 border-l-4 border-yellow-600 pl-4">Lançamentos da Produtora</h3>
+        
+        <div class="space-y-4">
+            <div onclick="playMusic()" class="group flex items-center justify-between p-4 bg-zinc-900/40 border border-zinc-800 rounded-lg hover:bg-zinc-800/60 transition cursor-pointer">
+                <div class="flex items-center gap-4">
+                    <img src="logo.jpg" class="w-12 h-12 rounded border border-zinc-700">
+                    <div>
+                        <h4 class="font-bold group-hover:text-yellow-500 transition">Música de Trabalho</h4>
+                        <p class="text-xs text-zinc-500 font-bold uppercase">Artista Rei do Home</p>
+                    </div>
+                </div>
+                <div class="text-yellow-600 group-hover:scale-110 transition">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="fixed bottom-0 left-0 right-0 bg-black/95 border-t border-zinc-800 p-4 z-[60] backdrop-blur-xl">
+        <div class="max-w-5xl mx-auto">
+            
+            <div class="w-full bg-zinc-800 h-1 mb-4 rounded-full overflow-hidden">
+                <div id="progress" class="gold-gradient h-full w-0 progress-bar"></div>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4 w-1/3">
+                    <img src="logo.jpg" class="w-10 h-10 object-cover rounded bg-zinc-900 border border-zinc-700 hidden xs:block">
+                    <div class="truncate">
+                        <p id="player-title" class="text-sm font-black uppercase gold-text">Aguardando Play</p>
+                        <p id="player-artist" class="text-[10px] text-zinc-500 font-bold uppercase">Produtora Rei do Home</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-center w-1/3">
+                    <button id="main-play-btn" class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center text-black shadow-lg shadow-yellow-600/20 active:scale-95 transition">
+                        <svg id="play-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.841z"></path></svg>
+                    </button>
+                </div>
+
+                <div class="flex justify-end w-1/3">
+                    <p class="text-[9px] text-zinc-700 font-black tracking-widest hidden md:block uppercase">Powered by Rei do Home</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const audio = new Audio('musica.mp3');
+        const playBtn = document.getElementById('main-play-btn');
+        const playIcon = document.getElementById('play-icon');
+        const progressBar = document.getElementById('progress');
+        const playerTitle = document.getElementById('player-title');
+
+        let isPlaying = false;
+
+        function playMusic() {
+            if (isPlaying) {
+                audio.pause();
+                playIcon.innerHTML = '<path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.841z"></path>';
+            } else {
+                audio.play();
+                playerTitle.innerText = "Música de Trabalho";
+                playIcon.innerHTML = '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8v4h2V8H7zm4 0v4h2V8h-2z" clip-rule="evenodd"></path>';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        playBtn.addEventListener('click', playMusic);
+
+        // Atualizar barra de progresso
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = progress + '%';
+        });
+
+        // Resetar ao acabar
+        audio.addEventListener('ended', () => {
+            isPlaying = false;
+            progressBar.style.width = '0%';
+            playIcon.innerHTML = '<path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.841z"></path>';
+        });
+    </script>
+</body>
+</html>
