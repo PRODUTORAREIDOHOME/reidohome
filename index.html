@@ -16,31 +16,83 @@
         .card-playing { border-color: #fbbf24 !important; background: rgba(251, 191, 36, 0.1) !important; scale: 1.02; }
         input[type="range"] { accent-color: #fbbf24; cursor: pointer; }
 
-        /* Estilo do Painel Admin */
+        /* Estilo do Dashboard Admin */
         #admin-panel { display: none; }
-        #admin-panel.active { display: flex; }
-        .glass-panel { background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px); border: 1px solid #333; }
+        #admin-panel.active { display: flex; animation: fadeIn 0.3s ease; }
+        .glass-panel { background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); border: 1px solid #222; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .tab-btn.active { border-bottom: 2px solid #fbbf24; color: #fbbf24; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body class="pb-32">
 
-    <div id="admin-panel" class="fixed inset-0 z-[100] bg-black/80 items-center justify-center p-4">
-        <div class="glass-panel w-full max-w-lg p-8 rounded-2xl shadow-2xl relative">
-            <button onclick="toggleAdmin()" class="absolute top-4 right-4 text-zinc-500 hover:text-white">✕</button>
-            
-            <h2 class="text-2xl font-black gold-text uppercase mb-6 text-center">Gerenciamento Rei do Home</h2>
-            
-            <div class="space-y-4">
-                <input type="text" id="add-titulo" placeholder="Título da Música" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg outline-none focus:border-yellow-600">
-                <input type="text" id="add-artista" placeholder="Artista" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg outline-none focus:border-yellow-600">
-                <input type="text" id="add-url" placeholder="Link do MP3 (URL)" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg outline-none focus:border-yellow-600 text-xs">
-                <input type="text" id="add-capa" placeholder="Link da Capa (URL)" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg outline-none focus:border-yellow-600 text-xs">
-                
-                <button onclick="salvarMusica()" id="btn-salvar" class="w-full gold-gradient text-black font-black py-4 rounded-xl hover:scale-[1.02] transition active:scale-95 uppercase">Publicar Track</button>
+    <div id="admin-panel" class="fixed inset-0 z-[100] bg-black/90 items-center justify-center p-2 sm:p-4">
+        <div class="glass-panel w-full max-w-4xl h-[90vh] flex flex-col rounded-3xl overflow-hidden relative border border-yellow-600/10">
+            <div class="p-6 border-b border-zinc-800 flex justify-between items-center bg-zinc-900/50">
+                <div>
+                    <h2 class="text-xl font-black gold-text uppercase leading-none">RAL DASHBOARD</h2>
+                    <p class="text-[9px] text-zinc-500 font-bold uppercase tracking-[0.2em] mt-1">Produtor: Ryan Guilherme</p>
+                </div>
+                <button onclick="toggleAdmin()" class="bg-red-600/10 text-red-500 p-2 rounded-full hover:bg-red-600 hover:text-white transition">✕</button>
             </div>
 
-            <div class="mt-8 pt-6 border-t border-zinc-800 max-h-48 overflow-y-auto" id="admin-list">
+            <div class="flex flex-1 overflow-hidden">
+                <div class="w-20 sm:w-48 border-r border-zinc-800 flex flex-col p-4 gap-2 bg-black/20">
+                    <button onclick="switchTab('tab-stats')" class="tab-btn active p-3 text-left text-[10px] font-black uppercase tracking-widest hover:bg-zinc-800 rounded-xl transition">📊 Resumo</button>
+                    <button onclick="switchTab('tab-upload')" class="tab-btn p-3 text-left text-[10px] font-black uppercase tracking-widest hover:bg-zinc-800 rounded-xl transition">🎹 Publicar</button>
+                    <button onclick="switchTab('tab-manage')" class="tab-btn p-3 text-left text-[10px] font-black uppercase tracking-widest hover:bg-zinc-800 rounded-xl transition">🎛️ Catálogo</button>
+                    <button onclick="switchTab('tab-config')" class="tab-btn p-3 text-left text-[10px] font-black uppercase tracking-widest hover:bg-zinc-800 rounded-xl transition">⚙️ Estúdio</button>
                 </div>
+
+                <div class="flex-1 overflow-y-auto p-6 bg-black/40">
+                    
+                    <div id="tab-stats" class="tab-content active space-y-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800">
+                                <p class="text-zinc-500 text-[10px] font-black uppercase mb-1">Total de Tracks</p>
+                                <h3 id="stat-count" class="text-4xl font-black gold-text">0</h3>
+                            </div>
+                            <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800">
+                                <p class="text-zinc-500 text-[10px] font-black uppercase mb-1">Servidor</p>
+                                <h3 class="text-xl font-black text-green-500 uppercase">Online</h3>
+                            </div>
+                        </div>
+                        <div class="bg-yellow-600/5 border border-yellow-600/20 p-4 rounded-xl">
+                            <p class="text-xs text-yellow-500">Seja bem-vindo ao sistema da <b>Ryan Audio Labs (RAL)</b>. Aqui você gerencia o Rei do Home em tempo real.</p>
+                        </div>
+                    </div>
+
+                    <div id="tab-upload" class="tab-content space-y-4">
+                        <h4 class="text-xs font-black uppercase gold-text mb-4">Novo Lançamento</h4>
+                        <input type="text" id="add-titulo" placeholder="Título da Música" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg outline-none focus:border-yellow-600">
+                        <input type="text" id="add-artista" placeholder="Artista Principal" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg outline-none focus:border-yellow-600">
+                        <input type="text" id="add-capa" placeholder="URL da Capa (Opcional)" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg outline-none focus:border-yellow-600">
+                        
+                        <div class="relative border-2 border-dashed border-zinc-800 rounded-2xl p-8 text-center hover:border-yellow-600 transition group cursor-pointer bg-zinc-900/30">
+                            <input type="file" id="add-file" class="absolute inset-0 opacity-0 cursor-pointer" accept="audio/*">
+                            <span id="file-label" class="text-[10px] font-bold text-zinc-500 uppercase group-hover:text-yellow-500">Clique para selecionar o MP3</span>
+                        </div>
+
+                        <button onclick="salvarMusicaPro()" id="btn-salvar" class="w-full gold-gradient text-black font-black py-4 rounded-xl hover:scale-[1.02] transition active:scale-95 uppercase text-xs">Publicar na Plataforma</button>
+                    </div>
+
+                    <div id="tab-manage" class="tab-content">
+                        <h4 class="text-xs font-black uppercase gold-text mb-4">Lista de Tracks Atuais</h4>
+                        <div id="admin-list" class="space-y-2"></div>
+                    </div>
+
+                    <div id="tab-config" class="tab-content space-y-4">
+                        <h4 class="text-xs font-black uppercase gold-text mb-4">Avisos do Site</h4>
+                        <p class="text-[10px] text-zinc-500 uppercase font-bold">Mudar legenda do topo:</p>
+                        <input type="text" id="status-input" placeholder="Ex: Estúdio em promoção para MIX!" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg text-sm">
+                        <button onclick="updateSiteStatus()" class="bg-zinc-800 px-6 py-2 rounded-lg text-[10px] font-black uppercase border border-zinc-700">Atualizar Site</button>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 
@@ -49,51 +101,48 @@
             <img src="logo.jpg" alt="Rei do Home" class="w-10 h-10 object-contain logo-glow">
             <span class="text-lg font-black uppercase tracking-tighter gold-text hidden sm:block">Rei do Home</span>
         </div>
-        <div class="flex gap-6 font-bold text-[10px] uppercase tracking-[0.2em]">
-            <a href="#" class="text-yellow-500">Início</a>
-            <a href="#catalogo" class="hover:text-yellow-500 transition">Músicas</a>
-            <button onclick="abrirAdminComSenha()" class="bg-zinc-800 px-3 py-1 rounded text-white border border-zinc-700 hover:bg-zinc-700 transition">Admin</button>
+        <div class="flex gap-4 items-center">
+            <a href="#catalogo" class="text-[10px] font-bold uppercase tracking-[0.2em] hover:text-yellow-500 transition">Músicas</a>
+            <button onclick="abrirAdminComSenha()" class="bg-zinc-800 px-4 py-1.5 rounded-full text-white text-[10px] font-black uppercase border border-zinc-700 hover:bg-yellow-600 hover:text-black transition">Painel Admin</button>
         </div>
     </nav>
 
-    <header class="relative h-[50vh] flex items-center justify-center overflow-hidden border-b border-zinc-900">
+    <header class="relative h-[40vh] flex items-center justify-center overflow-hidden border-b border-zinc-900">
         <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-black/60 z-10"></div>
         <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=2070" class="absolute inset-0 w-full h-full object-cover opacity-20">
         <div class="relative z-20 text-center px-4">
-            <img src="logo.jpg" alt="Rei do Home" class="w-32 h-32 md:w-48 md:h-48 mx-auto mb-6 logo-glow">
-            <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-2 gold-text">Rei do Home</h1>
-            <p class="text-zinc-400 text-[10px] uppercase tracking-[0.5em] font-bold">Catálogo Exclusivo da Produtora</p>
+            <img src="logo.jpg" alt="Rei do Home" class="w-24 h-24 mx-auto mb-4 logo-glow">
+            <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-1 gold-text">RAL Studio</h1>
+            <p id="site-caption" class="text-zinc-400 text-[10px] uppercase tracking-[0.5em] font-bold">Catálogo Exclusivo da Produtora</p>
         </div>
     </header>
 
     <main id="catalogo" class="max-w-4xl mx-auto px-6 py-12">
         <div class="flex items-center justify-between mb-8">
             <h3 class="text-xl font-black uppercase border-l-4 border-yellow-600 pl-4">Lançamentos</h3>
-            <span id="count" class="text-xs text-zinc-500 font-bold uppercase">0 Músicas</span>
+            <span id="count" class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">0 Músicas</span>
         </div>
         <div id="lista-musicas" class="grid gap-3"></div>
     </main>
 
-    <div class="fixed bottom-0 left-0 right-0 bg-black border-t border-zinc-800 p-4 z-[60] backdrop-blur-xl">
+    <div class="fixed bottom-0 left-0 right-0 bg-black/95 border-t border-zinc-800 p-4 z-[60] backdrop-blur-xl">
         <div class="max-w-4xl mx-auto">
-            <div id="progress-container" class="w-full bg-zinc-800 h-1.5 mb-4 rounded-full overflow-hidden cursor-pointer group">
-                <div id="progress" class="gold-gradient h-full w-0 progress-bar group-hover:h-2 transition-all"></div>
+            <div id="progress-container" class="w-full bg-zinc-800 h-1 mb-4 rounded-full overflow-hidden cursor-pointer group">
+                <div id="progress" class="gold-gradient h-full w-0 progress-bar"></div>
             </div>
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-4 w-1/3">
-                    <img id="player-img" src="logo.jpg" class="w-12 h-12 rounded border border-zinc-800 object-cover">
+                <div class="flex items-center gap-4 w-1/3 truncate">
+                    <img id="player-img" src="logo.jpg" class="w-12 h-12 rounded-lg border border-zinc-800 object-cover">
                     <div class="truncate">
-                        <p id="player-title" class="text-sm font-black uppercase gold-text truncate">Nenhuma faixa</p>
-                        <p id="player-artist" class="text-[10px] text-zinc-500 font-bold uppercase truncate">Selecione uma música</p>
+                        <p id="player-title" class="text-sm font-black uppercase gold-text truncate">Rei do Home</p>
+                        <p id="player-artist" class="text-[10px] text-zinc-500 font-bold uppercase truncate">Produtora Ryan Guilherme</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-6">
-                    <button id="main-play-btn" class="w-14 h-14 gold-gradient rounded-full flex items-center justify-center text-black">
-                        <svg id="play-icon" class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.841z"></path></svg>
-                    </button>
-                </div>
+                <button id="main-play-btn" class="w-14 h-14 gold-gradient rounded-full flex items-center justify-center text-black shadow-lg shadow-yellow-600/20">
+                    <svg id="play-icon" class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.841z"></path></svg>
+                </button>
                 <div class="flex items-center gap-3 w-1/3 justify-end hidden sm:flex">
-                    <input type="range" id="volume-control" min="0" max="1" step="0.1" value="1" class="w-20">
+                    <input type="range" id="volume-control" min="0" max="1" step="0.1" value="1" class="w-16">
                 </div>
             </div>
         </div>
@@ -105,72 +154,100 @@
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         const audio = new Audio();
-        const playBtn = document.getElementById('main-play-btn');
-        const playIcon = document.getElementById('play-icon');
-        const progressBar = document.getElementById('progress');
-        const progressContainer = document.getElementById('progress-container');
-        const volumeControl = document.getElementById('volume-control');
-        const playerTitle = document.getElementById('player-title');
-        const playerArtist = document.getElementById('player-artist');
-        const playerImg = document.getElementById('player-img');
-        
         let isPlaying = false;
         let currentAudioUrl = '';
 
-        // FUNÇÕES DO PAINEL ADMIN
+        // NAVEGAÇÃO ADMIN
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
         function abrirAdminComSenha() {
-            const senha = prompt("Digite a senha do Produtor:");
-            if (senha === "20262025") {
-                toggleAdmin();
-            } else {
-                alert("Acesso negado!");
-            }
+            const senha = prompt("ACESSO RESTRITO - RYAN GUILHERME:");
+            if (senha === "20262025") toggleAdmin();
+            else if(senha) alert("Acesso negado!");
         }
 
         function toggleAdmin() {
             const panel = document.getElementById('admin-panel');
             panel.classList.toggle('active');
-            if(panel.classList.contains('active')) fetchAdminList();
+            if(panel.classList.contains('active')) {
+                fetchAdminList();
+                switchTab('tab-stats');
+            }
         }
 
-        async function salvarMusica() {
+        function updateSiteStatus() {
+            const text = document.getElementById('status-input').value;
+            if(text) document.getElementById('site-caption').innerText = text;
+            alert("Aviso atualizado!");
+        }
+
+        // UPLOAD E BANCO
+        document.getElementById('add-file').onchange = (e) => {
+            const name = e.target.files[0]?.name;
+            if(name) document.getElementById('file-label').innerText = "SELECIONADO: " + name;
+        };
+
+        async function salvarMusicaPro() {
+            const file = document.getElementById('add-file').files[0];
             const titulo = document.getElementById('add-titulo').value;
             const artista = document.getElementById('add-artista').value;
-            const audio_url = document.getElementById('add-url').value;
-            const capa_url = document.getElementById('add-capa').value;
+            const capa = document.getElementById('add-capa').value;
 
-            if(!titulo || !artista || !audio_url) return alert("Preencha os campos obrigatórios!");
+            if(!file || !titulo || !artista) return alert("Selecione o arquivo e preencha o título!");
 
-            const { error } = await _supabase.from('musicas').insert([{ titulo, artista, audio_url, capa_url }]);
-            if (error) alert("Erro: " + error.message);
-            else {
-                alert("Track publicada!");
-                location.reload();
-            }
+            const btn = document.getElementById('btn-salvar');
+            btn.innerText = "UPANDO MP3..."; btn.disabled = true;
+
+            // 1. Upload para Storage
+            const filePath = `hits/${Date.now()}_${file.name}`;
+            const { error: upErr } = await _supabase.storage.from('musicas').upload(filePath, file);
+            
+            if(upErr) { alert("Erro Storage: " + upErr.message); btn.disabled = false; return; }
+
+            // 2. Pegar Link
+            const { data: urlData } = _supabase.storage.from('musicas').getPublicUrl(filePath);
+
+            // 3. Salvar no Banco
+            const { error: dbErr } = await _supabase.from('musicas').insert([{ 
+                titulo, artista, audio_url: urlData.publicUrl, capa_url: capa 
+            }]);
+
+            if (dbErr) alert("Erro Banco: " + dbErr.message);
+            else { alert("TRACK LANÇADA COM SUCESSO!"); location.reload(); }
         }
 
         async function fetchAdminList() {
             const { data } = await _supabase.from('musicas').select('*').order('created_at', { ascending: false });
             const list = document.getElementById('admin-list');
-            list.innerHTML = '<h4 class="text-xs font-bold text-zinc-500 uppercase mb-3">Gerenciar Tracks Atuais</h4>';
+            document.getElementById('stat-count').innerText = data.length;
+            list.innerHTML = '';
             data.forEach(m => {
                 const item = document.createElement('div');
-                item.className = "flex justify-between items-center bg-black p-2 rounded mb-2 border border-zinc-800";
-                item.innerHTML = `<span class="text-xs truncate w-2/3">${m.titulo}</span>
-                                 <button onclick="deletarMusica(${m.id})" class="text-red-500 text-[10px] font-bold uppercase">Excluir</button>`;
+                item.className = "flex justify-between items-center bg-zinc-900/50 p-3 rounded-xl border border-zinc-800";
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 truncate">
+                        <img src="${m.capa_url || 'logo.jpg'}" class="w-8 h-8 rounded object-cover">
+                        <span class="text-[10px] font-black uppercase truncate">${m.titulo}</span>
+                    </div>
+                    <button onclick="deletarMusica(${m.id})" class="text-red-500 text-[10px] font-black hover:bg-red-500/10 px-3 py-1 rounded-lg">EXCLUIR</button>`;
                 list.appendChild(item);
             });
         }
 
         async function deletarMusica(id) {
-            if(confirm("Tem certeza que deseja remover esta música?")) {
+            if(confirm("DELETAR ESSA TRACK?")) {
                 await _supabase.from('musicas').delete().eq('id', id);
                 fetchAdminList();
                 fetchMusicas();
             }
         }
 
-        // FUNÇÕES DO PLAYER E SITE
+        // PLAYER
         async function fetchMusicas() {
             const { data, error } = await _supabase.from('musicas').select('*').order('created_at', { ascending: false });
             if (error) return;
@@ -179,10 +256,10 @@
             container.innerHTML = '';
             data.forEach(m => {
                 const card = document.createElement('div');
-                card.id = `card-${btoa(m.audio_url).substring(0,10)}`;
-                card.className = "song-card group flex items-center justify-between p-4 bg-zinc-900/40 border border-zinc-800 rounded-lg hover:bg-zinc-800/60 transition cursor-pointer";
+                card.id = `card-${m.id}`;
+                card.className = "song-card group flex items-center justify-between p-4 bg-zinc-900/20 border border-zinc-800/50 rounded-2xl hover:bg-zinc-800/60 transition cursor-pointer";
                 card.onclick = () => carregarMusica(m.audio_url, m.titulo, m.artista, m.capa_url, card.id);
-                card.innerHTML = `<div class="flex items-center gap-4"><img src="${m.capa_url || 'logo.jpg'}" class="w-12 h-12 rounded border border-zinc-700 object-cover"><div><h4 class="font-bold group-hover:text-yellow-500 transition">${m.titulo}</h4><p class="text-[10px] text-zinc-500 font-bold uppercase">${m.artista}</p></div></div>`;
+                card.innerHTML = `<div class="flex items-center gap-4"><img src="${m.capa_url || 'logo.jpg'}" class="w-14 h-14 rounded-xl border border-zinc-800 object-cover"><div><h4 class="text-sm font-black uppercase gold-text">${m.titulo}</h4><p class="text-[10px] text-zinc-500 font-black uppercase">${m.artista}</p></div></div><div class="text-yellow-600 opacity-20 group-hover:opacity-100 transition">▶</div>`;
                 container.appendChild(card);
             });
         }
@@ -190,21 +267,21 @@
         function carregarMusica(url, titulo, artista, capa, cardId) {
             if (currentAudioUrl === url) { isPlaying ? pause() : play(); return; }
             currentAudioUrl = url; audio.src = url;
-            playerTitle.innerText = titulo; playerArtist.innerText = artista;
-            playerImg.src = capa || 'logo.jpg';
+            document.getElementById('player-title').innerText = titulo; 
+            document.getElementById('player-artist').innerText = artista;
+            document.getElementById('player-img').src = capa || 'logo.jpg';
             document.querySelectorAll('.song-card').forEach(c => c.classList.remove('card-playing'));
             document.getElementById(cardId).classList.add('card-playing');
             play();
         }
 
-        function play() { audio.play(); isPlaying = true; playIcon.innerHTML = '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8v4h2V8H7zm4 0v4h2V8h-2z" clip-rule="evenodd"></path>'; }
-        function pause() { audio.pause(); isPlaying = false; playIcon.innerHTML = '<path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.841z"></path>'; }
+        function play() { audio.play(); isPlaying = true; document.getElementById('play-icon').innerHTML = '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8v4h2V8H7zm4 0v4h2V8h-2z" clip-rule="evenodd"></path>'; }
+        function pause() { audio.pause(); isPlaying = false; document.getElementById('play-icon').innerHTML = '<path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.841z"></path>'; }
         
-        playBtn.addEventListener('click', () => { if (audio.src) isPlaying ? pause() : play(); });
-        audio.addEventListener('timeupdate', () => { progressBar.style.width = ((audio.currentTime / audio.duration) * 100 || 0) + '%'; });
-        progressContainer.addEventListener('click', (e) => { audio.currentTime = (e.offsetX / progressContainer.clientWidth) * audio.duration; });
-        volumeControl.addEventListener('input', (e) => { audio.volume = e.target.value; });
-        audio.addEventListener('ended', () => pause());
+        document.getElementById('main-play-btn').onclick = () => { if (audio.src) isPlaying ? pause() : play(); };
+        audio.ontimeupdate = () => { document.getElementById('progress').style.width = ((audio.currentTime / audio.duration) * 100 || 0) + '%'; };
+        document.getElementById('progress-container').onclick = (e) => { audio.currentTime = (e.offsetX / e.target.clientWidth) * audio.duration; };
+        document.getElementById('volume-control').oninput = (e) => { audio.volume = e.target.value; };
 
         fetchMusicas();
     </script>
