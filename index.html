@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtora Rei do Home | Plataforma Oficial</title>
+    <title>Rei Do Home / Plataforma Oficial</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
@@ -33,7 +33,7 @@
         <div class="glass-panel w-full max-w-4xl h-[90vh] flex flex-col rounded-3xl overflow-hidden relative border border-yellow-600/10">
             <div class="p-6 border-b border-zinc-800 flex justify-between items-center bg-zinc-900/50">
                 <div>
-                    <h2 class="text-xl font-black gold-text uppercase leading-none">RAL DASHBOARD</h2>
+                    <h2 class="text-xl font-black gold-text uppercase leading-none">ADMINISTRAÇÃO</h2>
                     <p class="text-[9px] text-zinc-500 font-bold uppercase tracking-[0.2em] mt-1">Produtor: Ryan Guilherme</p>
                 </div>
                 <button onclick="toggleAdmin()" class="bg-red-600/10 text-red-500 p-2 rounded-full hover:bg-red-600 hover:text-white transition">✕</button>
@@ -57,40 +57,35 @@
                             </div>
                             <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800">
                                 <p class="text-zinc-500 text-[10px] font-black uppercase mb-1">Servidor</p>
-                                <h3 class="text-xl font-black text-green-500 uppercase">Online</h3>
+                                <h3 class="text-xl font-black text-green-500 uppercase">Ativo</h3>
                             </div>
-                        </div>
-                        <div class="bg-yellow-600/5 border border-yellow-600/20 p-4 rounded-xl">
-                            <p class="text-xs text-yellow-500">Seja bem-vindo ao sistema da <b>Ryan Audio Labs (RAL)</b>. Aqui você gerencia o Rei do Home em tempo real.</p>
                         </div>
                     </div>
 
                     <div id="tab-upload" class="tab-content space-y-4">
                         <h4 class="text-xs font-black uppercase gold-text mb-4">Novo Lançamento</h4>
                         <input type="text" id="add-titulo" placeholder="Título da Música" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg outline-none focus:border-yellow-600">
-                        <input type="text" id="add-artista" placeholder="Artista Principal" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg outline-none focus:border-yellow-600">
+                        <input type="text" id="add-artista" placeholder="Artista" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg outline-none focus:border-yellow-600">
                         <input type="text" id="add-capa" placeholder="URL da Capa (Opcional)" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg outline-none focus:border-yellow-600">
                         
                         <div class="relative border-2 border-dashed border-zinc-800 rounded-2xl p-8 text-center hover:border-yellow-600 transition group cursor-pointer bg-zinc-900/30">
                             <input type="file" id="add-file" class="absolute inset-0 opacity-0 cursor-pointer" accept="audio/*">
-                            <span id="file-label" class="text-[10px] font-bold text-zinc-500 uppercase group-hover:text-yellow-500">Clique para selecionar o MP3</span>
+                            <span id="file-label" class="text-[10px] font-bold text-zinc-500 uppercase group-hover:text-yellow-500">Selecionar arquivo MP3</span>
                         </div>
 
-                        <button onclick="salvarMusicaPro()" id="btn-salvar" class="w-full gold-gradient text-black font-black py-4 rounded-xl hover:scale-[1.02] transition active:scale-95 uppercase text-xs">Publicar na Plataforma</button>
+                        <button onclick="salvarMusicaPro()" id="btn-salvar" class="w-full gold-gradient text-black font-black py-4 rounded-xl hover:scale-[1.02] transition active:scale-95 uppercase text-xs">Publicar Track</button>
                     </div>
 
                     <div id="tab-manage" class="tab-content">
-                        <h4 class="text-xs font-black uppercase gold-text mb-4">Lista de Tracks Atuais</h4>
+                        <h4 class="text-xs font-black uppercase gold-text mb-4">Gerenciar Tracks</h4>
                         <div id="admin-list" class="space-y-2"></div>
                     </div>
 
                     <div id="tab-config" class="tab-content space-y-4">
                         <h4 class="text-xs font-black uppercase gold-text mb-4">Avisos do Site</h4>
-                        <p class="text-[10px] text-zinc-500 uppercase font-bold">Mudar legenda do topo:</p>
-                        <input type="text" id="status-input" placeholder="Ex: Estúdio em promoção para MIX!" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg text-sm">
-                        <button onclick="updateSiteStatus()" class="bg-zinc-800 px-6 py-2 rounded-lg text-[10px] font-black uppercase border border-zinc-700">Atualizar Site</button>
+                        <input type="text" id="status-input" placeholder="Mudar legenda do cabeçalho" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-lg text-sm">
+                        <button onclick="updateSiteStatus()" class="bg-zinc-800 px-6 py-2 rounded-lg text-[10px] font-black uppercase border border-zinc-700">Atualizar</button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -112,7 +107,7 @@
         <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=2070" class="absolute inset-0 w-full h-full object-cover opacity-20">
         <div class="relative z-20 text-center px-4">
             <img src="logo.jpg" alt="Rei do Home" class="w-24 h-24 mx-auto mb-4 logo-glow">
-            <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-1 gold-text">RAL Studio</h1>
+            <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-1 gold-text">Rei do Home</h1>
             <p id="site-caption" class="text-zinc-400 text-[10px] uppercase tracking-[0.5em] font-bold">Catálogo Exclusivo da Produtora</p>
         </div>
     </header>
@@ -127,7 +122,7 @@
 
     <div class="fixed bottom-0 left-0 right-0 bg-black/95 border-t border-zinc-800 p-4 z-[60] backdrop-blur-xl">
         <div class="max-w-4xl mx-auto">
-            <div id="progress-container" class="w-full bg-zinc-800 h-1 mb-4 rounded-full overflow-hidden cursor-pointer group">
+            <div id="progress-container" class="w-full bg-zinc-800 h-1 mb-4 rounded-full overflow-hidden cursor-pointer">
                 <div id="progress" class="gold-gradient h-full w-0 progress-bar"></div>
             </div>
             <div class="flex items-center justify-between">
@@ -138,7 +133,7 @@
                         <p id="player-artist" class="text-[10px] text-zinc-500 font-bold uppercase truncate">Produtora Ryan Guilherme</p>
                     </div>
                 </div>
-                <button id="main-play-btn" class="w-14 h-14 gold-gradient rounded-full flex items-center justify-center text-black shadow-lg shadow-yellow-600/20">
+                <button id="main-play-btn" class="w-14 h-14 gold-gradient rounded-full flex items-center justify-center text-black">
                     <svg id="play-icon" class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.841z"></path></svg>
                 </button>
                 <div class="flex items-center gap-3 w-1/3 justify-end hidden sm:flex">
@@ -157,7 +152,6 @@
         let isPlaying = false;
         let currentAudioUrl = '';
 
-        // NAVEGAÇÃO ADMIN
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -166,9 +160,9 @@
         }
 
         function abrirAdminComSenha() {
-            const senha = prompt("ACESSO RESTRITO - RYAN GUILHERME:");
+            const senha = prompt("SENHA DO PRODUTOR:");
             if (senha === "20262025") toggleAdmin();
-            else if(senha) alert("Acesso negado!");
+            else if(senha) alert("Senha errada!");
         }
 
         function toggleAdmin() {
@@ -183,13 +177,12 @@
         function updateSiteStatus() {
             const text = document.getElementById('status-input').value;
             if(text) document.getElementById('site-caption').innerText = text;
-            alert("Aviso atualizado!");
+            alert("Atualizado!");
         }
 
-        // UPLOAD E BANCO
         document.getElementById('add-file').onchange = (e) => {
             const name = e.target.files[0]?.name;
-            if(name) document.getElementById('file-label').innerText = "SELECIONADO: " + name;
+            if(name) document.getElementById('file-label').innerText = name;
         };
 
         async function salvarMusicaPro() {
@@ -198,27 +191,20 @@
             const artista = document.getElementById('add-artista').value;
             const capa = document.getElementById('add-capa').value;
 
-            if(!file || !titulo || !artista) return alert("Selecione o arquivo e preencha o título!");
+            if(!file || !titulo) return alert("Selecione o arquivo e dê um título!");
 
             const btn = document.getElementById('btn-salvar');
-            btn.innerText = "UPANDO MP3..."; btn.disabled = true;
+            btn.innerText = "ENVIANDO..."; btn.disabled = true;
 
-            // 1. Upload para Storage
             const filePath = `hits/${Date.now()}_${file.name}`;
             const { error: upErr } = await _supabase.storage.from('musicas').upload(filePath, file);
             
-            if(upErr) { alert("Erro Storage: " + upErr.message); btn.disabled = false; return; }
+            if(upErr) { alert("Erro: " + upErr.message); btn.disabled = false; return; }
 
-            // 2. Pegar Link
             const { data: urlData } = _supabase.storage.from('musicas').getPublicUrl(filePath);
+            await _supabase.from('musicas').insert([{ titulo, artista, audio_url: urlData.publicUrl, capa_url: capa }]);
 
-            // 3. Salvar no Banco
-            const { error: dbErr } = await _supabase.from('musicas').insert([{ 
-                titulo, artista, audio_url: urlData.publicUrl, capa_url: capa 
-            }]);
-
-            if (dbErr) alert("Erro Banco: " + dbErr.message);
-            else { alert("TRACK LANÇADA COM SUCESSO!"); location.reload(); }
+            alert("SUCESSO!"); location.reload();
         }
 
         async function fetchAdminList() {
@@ -234,20 +220,19 @@
                         <img src="${m.capa_url || 'logo.jpg'}" class="w-8 h-8 rounded object-cover">
                         <span class="text-[10px] font-black uppercase truncate">${m.titulo}</span>
                     </div>
-                    <button onclick="deletarMusica(${m.id})" class="text-red-500 text-[10px] font-black hover:bg-red-500/10 px-3 py-1 rounded-lg">EXCLUIR</button>`;
+                    <button onclick="deletarMusica(${m.id})" class="text-red-500 text-[10px] font-black hover:bg-red-600/10 px-3 py-1 rounded-lg">EXCLUIR</button>`;
                 list.appendChild(item);
             });
         }
 
         async function deletarMusica(id) {
-            if(confirm("DELETAR ESSA TRACK?")) {
+            if(confirm("DELETAR TRACK?")) {
                 await _supabase.from('musicas').delete().eq('id', id);
                 fetchAdminList();
                 fetchMusicas();
             }
         }
 
-        // PLAYER
         async function fetchMusicas() {
             const { data, error } = await _supabase.from('musicas').select('*').order('created_at', { ascending: false });
             if (error) return;
@@ -259,7 +244,7 @@
                 card.id = `card-${m.id}`;
                 card.className = "song-card group flex items-center justify-between p-4 bg-zinc-900/20 border border-zinc-800/50 rounded-2xl hover:bg-zinc-800/60 transition cursor-pointer";
                 card.onclick = () => carregarMusica(m.audio_url, m.titulo, m.artista, m.capa_url, card.id);
-                card.innerHTML = `<div class="flex items-center gap-4"><img src="${m.capa_url || 'logo.jpg'}" class="w-14 h-14 rounded-xl border border-zinc-800 object-cover"><div><h4 class="text-sm font-black uppercase gold-text">${m.titulo}</h4><p class="text-[10px] text-zinc-500 font-black uppercase">${m.artista}</p></div></div><div class="text-yellow-600 opacity-20 group-hover:opacity-100 transition">▶</div>`;
+                card.innerHTML = `<div class="flex items-center gap-4"><img src="${m.capa_url || 'logo.jpg'}" class="w-14 h-14 rounded-xl border border-zinc-800 object-cover"><div><h4 class="text-sm font-black uppercase gold-text">${m.titulo}</h4><p class="text-[10px] text-zinc-500 font-black uppercase">${m.artista}</p></div></div><div class="text-yellow-600 opacity-20">▶</div>`;
                 container.appendChild(card);
             });
         }
